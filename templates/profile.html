@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<head>
+    <!-- meta -->
+    <meta charset="utf-8">
+    <!-- style -->
+    <link rel="stylesheet" href="//o4j806krb.qnssl.com/public/stylesheets/index.min.23a5b1ca.min.css" media="all">
+    <title>{{user.username}}的个人主页</title>
+</head>
+
+<body>
+    <!-- navbar -->
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="/">
+                    Curt TG
+                </a>
+                <ul class="nav pull-right">
+                    <li>
+                        <a href="/">首页</a>
+                    </li>
+                    <li>
+                        <a href="/signup">注册</a>
+                    </li>
+                    <li>
+                        <a href="/signin">登录</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div id="sidebar">
+            <div class="panel">
+                <div class="header">
+                    <span class="col_fade">个人信息</span>
+                </div>
+                <div class="inner">
+                    <div class="user_card">
+                        <div>
+                            <a class="user_avatar" href="/user/{{user.username}}">
+                                {% if user.is_guest() %}
+                                <img src="/static/pic.png" title="{{user.username}}">
+                                {% else %}
+                                <img src="/static/avatar/{{user.avatar}}" title="{{user.username}}">
+                                {% endif %}
+                            </a>
+                            <span class="user_name">
+                                <a class="dark" href="/user/{{user.username}}">{{user.username}}</a>
+                            </span>
+                            <div class="signature">
+                                "{{user.sign}}"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="inner">
+                    <a href="/topic/new">
+                        <span class='span-success'>发布话题</span>
+                    </a>
+                </div>
+                {% if can_edit %}
+                <div class="inner">
+                    <a href="/profile/edit?id={{user.id}}">
+                        <span class='span-success'>编辑个人资料</span>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div id="content">
+            <div class="panel">
+                <div class="header">
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="/">主页</a>
+                            <span class="divider">/</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="inner userinfo">
+                    <div class="user_big_avatar">
+                            {% if user.is_guest() %}
+                            <img src="/static/pic.png" title="{{user.username}}">
+                            {% else %}
+                            <img src="/static/avatar/{{user.avatar}}" title="{{user.username}}">
+                            {% endif %}
+                    </div>
+                    <a class="dark">{{user.username}}</a>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="header">
+                    <span class="col_fade">最近创建的话题</span>
+                </div>
+                {% for topic in topics %}
+                <div class="cell">
+                    <a class="user_avatar pull-left" href="/user/{{user.username}}">
+                        {% if user.is_guest() %}
+                        <img src="/static/pic.png" title="{{user.username}}">
+                        {% else %}
+                        <img src="/static/avatar/{{user.avatar}}" title="{{user.username}}">
+                        {% endif %}
+                    </a>
+                    <span class="reply_count pull-left">
+                        <span class="count_of_replies" title="回复数">
+                            {{topic.reply_num}}
+                        </span>
+                        <span class="count_seperator">/</span>
+                        <span class="count_of_visits" title="点击数">
+                            {{topic.read_num}}
+                        </span>
+                    </span>
+                    <span class="last_time pull-right">
+                        <span class="last_active_time">创建于{{topic.update_time|timeformat}}</span>
+                    </span>
+                    <div class="topic_title_wrapper">
+                        <a class="topic_title" href="/topic/{{topic.id}}" title="{{topic.title}}">
+                            {{topic.title}}
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="header">
+                <span class="col_fade">最近参与的话题</span>
+            </div>
+            {% for reply in replys %}
+            <div class="cell">
+                <a class="user_avatar pull-left" href="/user/{{user.username}}">
+                    {% if user.is_guest() %}
+                    <img src="/static/pic.png" title="{{user.username}}">
+                    {% else %}
+                    <img src="/static/avatar/{{user.avatar}}" title="{{user.username}}">
+                    {% endif %}
+                </a>
+                <div class="topic_title_wrapper">
+                    <a class="topic_title" href="/topic/{{reply.topic_id}}" title="{{reply.title}}">
+                        {{reply.title}}
+                    </a>
+                    <p>发表回复: {{reply.content}}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#set_star_btn').click(function () {
+                var $me = $(this);
+                var action = $me.attr('action');
+                var params = {
+                    user_id: '5b390505ac8bc1e124114535',
+                    _csrf: 'P6ZmmB6z-8cp_cxJeVyad7UqtzZathXDyRfU'
+                };
+                $.post('/user/' + action, params, function (data) {
+                    if (data.status === 'success') {
+                        if (action === 'set_star') {
+                            $me.html('取消达人');
+                            $me.attr('action', 'cancel_star');
+                        } else {
+                            $me.html('设为达人');
+                            $me.attr('action', 'set_star');
+                        }
+                    }
+                }, 'json');
+            });
+
+            $('#set_block_btn').click(function () {
+                var $me = $(this);
+                var action = $me.attr('action');
+                var params = {
+                    _csrf: 'P6ZmmB6z-8cp_cxJeVyad7UqtzZathXDyRfU',
+                    action: action
+                };
+                if (action === 'set_block' && !confirm('确定要屏蔽该用户吗？')) {
+                    return;
+                }
+                $.post('/user/Curt-H/block', params, function (data) {
+                    if (data.status === 'success') {
+                        if (action === 'set_block') {
+                            $me.html('取消屏蔽用户');
+                            $me.attr('action', 'cancel_block');
+                        } else if (action === 'cancel_block') {
+                            $me.html('屏蔽用户');
+                            $me.attr('action', 'set_block');
+                        }
+                    }
+                }, 'json');
+            })
+
+            $('#delete_all').click(function () {
+                var $me = $(this);
+                var params = {
+                    _csrf: 'P6ZmmB6z-8cp_cxJeVyad7UqtzZathXDyRfU',
+                };
+                if (!confirm('确定要删除吗？（不会永久删除，只做标记位）')) {
+                    return;
+                }
+                $.post('/user/Curt-H/delete_all', params, function (data) {
+                    if (data.status === 'success') {
+                        alert('操作成功');
+                    }
+                }, 'json');
+            })
+        });
+    </script>
+
+
+    </div>
+
+</body>

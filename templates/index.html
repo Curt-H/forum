@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/static/css/index.css">
+</head>
+
+<body>
+    <!-- navbar -->
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="/">
+                    Curt TG
+                </a>
+                <ul class="nav pull-right">
+                    <li>
+                        <a href="/">首页</a>
+                    </li>
+                    <li>
+                        <a href="/signup">注册</a>
+                    </li>
+                    <li>
+                        <a href="/signin">登录</a>
+                    </li>
+                    <li>
+                        <a href="/logout">注销</a>
+                    </li>
+                </ul>
+                <a class="btn btn-navbar" id="responsive-sidebar-trigger">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        {% include 'siderbar.html' %}
+        <div id="content">
+            <div class="panel">
+                <div class="header">
+                    <a href="/?tab=all" class="topic-tab current-tab">全部</a>
+                    <a href="/?tab=good" class="topic-tab">精华</a>
+                    <a href="/?tab=share" class="topic-tab">分享</a>
+                    <a href="/?tab=ask" class="topic-tab">问答</a>
+                </div>
+                <div class="inner no-padding">
+                    <div id="topic_list">
+                        {% for i in topics%}
+                        <div class="cell">
+                            <a class="user_avatar pull-left" href="/user/{{i.writer_name()}}">
+                                <img src="/static/avatar/{{i.writer_avatar()}}" title="{{i.writer_name()}}">
+                            </a>
+                            <span class="reply_count pull-left">
+                                <span class="count_of_replies" title="回复数">
+                                    {{i.reply_num}}
+                                </span>
+                                <span class="count_seperator">/</span>
+                                <span class="count_of_visits" title="点击数">
+                                    {{i.read_num}}
+                                </span>
+                            </span>
+                            <a class="last_time pull-right" href="/topic/{{i.id}}">
+                                <img class="user_small_avatar" src="/static/pic.png">
+                                <span class="last_active_time">话题创建于{{i.update_time|timeformat}}</span>
+                            </a>
+                            <div class="topic_title_wrapper">
+                                <!-- <span class="put_top"></span> -->
+                                <a class="topic_title" href="/topic/{{i.id}}" title="{{i.title}}">
+                                    {{i.title}}
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- <script>
+                        $(document).ready(function () {
+                            var $nav = $('.pagination');
+                            var current_page = $nav.attr('current_page');
+                            if (current_page) {
+                                $nav.find('li').each(function () {
+                                    var $li = $(this);
+                                    var $a = $li.find('a');
+                                    if ($a.html() == current_page) {
+                                        $li.addClass('active');
+                                        $a.removeAttr('href');
+                                    }
+                                });
+                            }
+                        });
+                    </script> -->
+            </div>
+        </div>
+    </div>
+    <div id="backtotop" style="top: 663px; right: 0px;">回到顶部</div>
+    <div id="sidebar-mask"></div>
+</body>
+
+</html>

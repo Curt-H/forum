@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <script src="//o4j806krb.qnssl.com/public/index.min.f7c13f64.min.js"></script>
+</head>
+
+<body>
+    <!-- navbar -->
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="/">
+                    Curt TG
+                </a>
+                <ul class="nav pull-right">
+                    <li>
+                        <a href="/">首页</a>
+                    </li>
+                    <li>
+                        <a href="/signup">注册</a>
+                    </li>
+                    <li>
+                        <a href="/signin">登录</a>
+                    </li>
+                </ul>
+                <a class="btn btn-navbar" id="responsive-sidebar-trigger">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div id="sidebar">
+            <div class="panel">
+                <div class="inner">
+                    <p>CurtTG's forum</p>
+                    <div>
+                        {{ username}}, 您好!
+                    </div>
+                    <a href="/topic/new">
+                        <span class='span-success'>发布话题</span>
+                    </a>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="header">
+                    <span class="col_fade">Markdown 语法参考</span>
+                </div>
+                <div class="inner">
+                    <ol>
+                        <li>
+                            <tt>### 单行的标题</tt>
+                        </li>
+                        <li>
+                            <tt>**粗体**</tt>
+                        </li>
+                        <li>
+                            <tt>`console.log('行内代码')`</tt>
+                        </li>
+                        <li>
+                            <tt>```js\n code \n```</tt> 标记代码块</li>
+                        <li>
+                            <tt>[内容](链接)</tt>
+                        </li>
+                        <li>
+                            <tt>![文字说明](图片链接)</tt>
+                        </li>
+                    </ol>
+                    <span>
+                        <a href="https://segmentfault.com/markdown" target="_blank">Markdown 文档</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div id="content">
+            <div class="panel">
+                <div class="header">
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="/">主页</a>
+                            <span class="divider">/</span>
+                        </li>
+                        <li class="active">发布话题</li>
+                    </ol>
+                </div>
+                <div class="inner post">
+                    <form id="create_topic_form" action="/topic/new/add" method="post">
+                        <fieldset>
+                            <!-- <span class="tab-selector">选择版块：</span>
+                            <select name="tab" id="tab-value">
+                                <option value="">请选择</option>
+                                <option value="share">分享</option>
+                                <option value="ask">问答</option>
+                                <option value="job">招聘</option>
+                                <option value="dev">客户端测试</option>
+                            </select> -->
+                            <span id="topic_create_warn"></span>
+                            <textarea class="span9" id="title" name="title" rows="1" placeholder="标题字数 10 字以上"></textarea>
+                            <div class="markdown_editor in_editor">
+                                <div class="markdown_in_editor">
+                                    <textarea autofocus="" class="span9" id="content" name="content" cols="50"></textarea>
+                                    <div class=" editor_buttons ">
+                                        <input class="span-primary submit_btn" data-loading-text="提交中" value="提交" type="submit">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="/static/markdown.js "></script>
+    </div>
+    <div id="backtotop " style="top: 663px; right: 0px; ">回到顶部</div>
+    <div id="sidebar-mask "></div>
+</body>
+
+</html>
