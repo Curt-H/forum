@@ -107,5 +107,5 @@ log.gua.txt
 data/Session.txt
 secret.py
 test.py
-static/code/
+static/code/*.png
 !static/avatar/pic.png
