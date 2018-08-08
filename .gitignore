@@ -109,3 +109,8 @@ secret.py
 test.py
 static/code/*.png
 !static/avatar/pic.png
+.vagrant/
+deploy.bash
+guavm.box
+guavm.json
+Vagrantfile
