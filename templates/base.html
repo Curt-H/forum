@@ -19,13 +19,13 @@
                     <a href="/">首页</a>
                 </li>
                 <li>
-                    <a href="/signup">注册</a>
+                    <a href="{{ url_for('routes.user.signin') }}">注册</a>
                 </li>
                 <li>
-                    <a href="/signin">登录</a>
+                    <a href="{{ url_for('routes.user.login') }}">登录</a>
                 </li>
                 <li>
-                    <a href="/logout">注销</a>
+                    <a href="{{ url_for('routes.user.logout') }}">注销</a>
                 </li>
             </ul>
         </div>

@@ -20,10 +20,31 @@ from models.user import User
 users = Blueprint(__name__, 'users')
 
 
-@users.route('/signup')
-def signup():
+@users.route('/user/new', methods=['POST'])
+def register():
+    """
+    接受注册信息, 写入数据库
+    """
+    # 获取注册相关数据
+    form = dict()
+    for k, v in request.form.items():
+        form[k] = v
+
+    # 执行注册数据
+    user, result = User.register(form)
+    log('Register result:', result, user)
+
+    return redirect(url_for('.signin_view', result=result))
+
+
+@users.route('/signin/view')
+def signin_view():
+    """
+    用于显示注册结果
+    :return:
+    """
     result = request.args.get('result', '')
-    return render_template('sign_up.html', result=result)
+    return render_template('login.html', result=result)
 
 
 @users.route('/signin')
@@ -40,18 +61,7 @@ def signin():
     u = current_user()
     if u.id > 0:
         generate_csrf_token()
-    return render_template('sign_in.html', result=result, code=filepath)
-
-
-@users.route('/user/new', methods=['POST'])
-def register():
-    form = dict()
-    for k, v in request.form.items():
-        form[k] = v
-
-    user, result = User.register(form)
-    log('Register result:', result, user)
-    return redirect(url_for('.signup', result=result))
+    return render_template('login.html', result=result, code=filepath)
 
 
 @users.route('/user/login', methods=['POST'])
@@ -68,7 +78,7 @@ def login():
     vcode = 'static/code/{}.png'.format(vcode)
     img = form['img']
     if img != vcode:
-        return redirect(url_for('.signin', result='验证码不正确'))
+        return redirect(url_for('.signin_view', result='验证码不正确'))
     form.pop('code')
     form.pop('img')
 
