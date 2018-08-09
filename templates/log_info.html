@@ -4,10 +4,10 @@
 {% endblock %}
 {% block script %}
     <script type="text/javascript">
-        alert("{{ alert }}")
+        alert("{{ alert }}");
         let jump = function (target) {
             window.location.href = target
-        }
+        };
         setTimeout(jump("{{ target }}"), 3000)
     </script>
 {% endblock script %}

@@ -20,6 +20,11 @@ from models.user import User
 users = Blueprint(__name__, 'users')
 
 
+@users.route('/signin')
+def signin():
+    return render_template('signin.html')
+
+
 @users.route('/user/new', methods=['POST'])
 def register():
     """
@@ -34,7 +39,20 @@ def register():
     user, result = User.register(form)
     log('Register result:', result, user)
 
-    return redirect(url_for('.loginfo', result=result, target=url_for('routes.user.login')))
+    #  注册结果失败则返回到注册页面, 成功则自动登陆
+    if result == '注册成功':
+        log(f'自动登陆用表单\n{form}')
+        form = dict(
+            session_id=uuid.uuid4().hex,
+            user_id=user.id,
+        )
+        s = Session.new(form)
+
+        response = make_response(redirect(url_for('routes.public.index')))
+        response.set_cookie('session_id', s.session_id)
+        return response
+    else:
+        return redirect(url_for('.loginfo', result=result, target=url_for('routes.user.login')))
 
 
 @users.route('/login/view')
@@ -63,10 +81,13 @@ def login_view():
 
 @users.route('/login/valid', methods=['POST'])
 def login_valid():
+    """
+    验证登陆数据
+    """
+    # 接收POST数据
     form = dict()
     for k, v in request.form.items():
         form[k] = v
-
     log('FORM\n{}'.format(form))
 
     # 验证验证码
@@ -75,7 +96,7 @@ def login_valid():
     vcode = 'static/code/{}.png'.format(vcode)
     img = form['img']
     if img != vcode:
-        return redirect(url_for('.signin_view', result='验证码不正确'))
+        return redirect(url_for('.log_info', result='验证码不正确', target=url_for('.login_view')))
     form.pop('code')
     form.pop('img')
 
@@ -89,7 +110,7 @@ def login_valid():
         )
         Session.new(form)
     log('USER\n{}'.format(u.username))
-    response = make_response(redirect(url_for('.signin', result=result)))
+    response = make_response(redirect(url_for('.log_info', result=result, target=url_for('routes.public.index'))))
     if session_id is not None:
         response.set_cookie('session_id', session_id)
     return response
@@ -108,11 +129,11 @@ def logout():
 
 
 @users.route('/loginfo')
-def log_infor():
+def log_info():
     """
     用于显示注册结果
     :return:
     """
-    target = url_for('routes.public.index')
     result = request.args.get('result', '')
+    target = request.args.get('target', url_for('routes.public.index'))
     return render_template('log_info.html', alert=result, target=target)
