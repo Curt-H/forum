@@ -88,6 +88,7 @@ def topic_update():
     form['writer_id'] = u.id
     form['update_time'] = time.time()
 
+    log(form)
     Topic.update(topic_id, **form)
 
     return redirect(url_for('routes.public.index'))
@@ -107,6 +108,7 @@ def reply_add():
 def add_read_num(topic_id):
     topic = Topic.one(id=topic_id)
     log('TOPIC\n{}'.format(topic))
+    log('CONTENT\n{}'.format(topic.content))
     read_num = topic.read_num + 1
     log('Reading num increase!')
 
