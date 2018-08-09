@@ -95,5 +95,6 @@ def logout():
     :return: 重定向到首页
     """
     response = make_response(redirect(url_for('routes.public.index')))
+    # 清除session_id
     response.set_cookie('session_id', ' ')
     return response

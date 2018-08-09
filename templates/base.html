@@ -1,40 +1,50 @@
-<!DOCTYPE html> 
-{% block header %} {% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/css/index.css">
+    {% block header %} {% endblock %}
+</head>
 
 <body>
-    <!-- navbar -->
-    <div class="navbar">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="brand" href="/">
-                    Curt TG
-                </a>
-                <ul class="nav pull-right">
-                    <li>
-                        <a href="/">首页</a>
-                    </li>
-                    <li>
-                        <a href="/signup">注册</a>
-                    </li>
-                    <li>
-                        <a href="/signin">登录</a>
-                    </li>
-                </ul>
-            </div>
+<!-- navbar -->
+<div class=" navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="/">
+                Curt TG
+            </a>
+            <ul class="nav pull-right">
+                <li>
+                    <a href="/">首页</a>
+                </li>
+                <li>
+                    <a href="/signup">注册</a>
+                </li>
+                <li>
+                    <a href="/signin">登录</a>
+                </li>
+                <li>
+                    <a href="/logout">注销</a>
+                </li>
+            </ul>
         </div>
     </div>
-    {% block content %} {% endblock %}
-    <div id="footer">
-        <div id="footer_main">
-            <div class="links">
-                <a class="dark" href="http://www.miit.gov.cn/">皖ICP备17018263号-1</a>
-            </div>
+</div>
+{% block content %} {% endblock %}
+<div id="footer">
+    <div id="footer_main">
+        <div class="links">
+            <a class="dark" href="http://www.miit.gov.cn/">皖ICP备17018263号-1</a>
+        </div>
 
-            <div class="col_fade">
-                <p>这里是一个基于JINJA模板的FOOTER, 我实在想不出来要在这写什么了</p>
-            </div>
+        <div class="col_fade">
+            <p>真正的勇士, 敢于直面惨淡的人生, 敢于正视淋漓的鲜血.</p>
         </div>
     </div>
-    {% block script %}
-    {% endblock %}
+</div>
+{% block script %}
+{% endblock %}
 </body>
+
+</html>
