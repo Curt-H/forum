@@ -34,38 +34,35 @@ def register():
     user, result = User.register(form)
     log('Register result:', result, user)
 
-    return redirect(url_for('.signin_view', result=result))
+    return redirect(url_for('.loginfo', result=result, target=url_for('routes.user.login')))
 
 
-@users.route('/signin/view')
-def signin_view():
+@users.route('/login/view')
+def login_view():
     """
-    用于显示注册结果
-    :return:
+    登录页面
     """
-    result = request.args.get('result', '')
-    return render_template('login.html', result=result)
-
-
-@users.route('/signin')
-def signin():
+    # 生成4位数验证码
     code = str(randint(1000, 9999))
+    # 将验证码内容的hash作为图片的文件名
     sha256_code = hashlib.sha256(code.encode('ascii')).hexdigest()
     filename = '{}.png'.format(sha256_code)
+    # 如果曾经生成过就直接调用, 否则生成图片
     if os.path.exists(filename):
         filepath = 'static/code/{}'.format(filename)
     else:
         filepath = verify_code(code, sha256_code)
 
     result = request.args.get('result', '')
+    # 生成csrf令牌
     u = current_user()
     if u.id > 0:
         generate_csrf_token()
     return render_template('login.html', result=result, code=filepath)
 
 
-@users.route('/user/login', methods=['POST'])
-def login():
+@users.route('/login/valid', methods=['POST'])
+def login_valid():
     form = dict()
     for k, v in request.form.items():
         form[k] = v
@@ -108,3 +105,14 @@ def logout():
     # 清除session_id
     response.set_cookie('session_id', ' ')
     return response
+
+
+@users.route('/loginfo')
+def log_infor():
+    """
+    用于显示注册结果
+    :return:
+    """
+    target = url_for('routes.public.index')
+    result = request.args.get('result', '')
+    return render_template('log_info.html', alert=result, target=target)
