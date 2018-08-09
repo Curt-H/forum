@@ -90,6 +90,10 @@ def login():
 
 @users.route('/logout')
 def logout():
-    response = make_response(redirect(url_for('routes.route_public.index')))
+    """
+    注销登录用
+    :return: 重定向到首页
+    """
+    response = make_response(redirect(url_for('routes.public.index')))
     response.set_cookie('session_id', ' ')
     return response
