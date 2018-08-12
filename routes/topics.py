@@ -102,7 +102,7 @@ def reply_add():
     form['writer_id'] = u.id
 
     Reply.new(form)
-    return redirect(url_for('.topic_content', topic_id=form['topic_id']))
+    return redirect(url_for('.topic_content', topic_id=form['topic_id'], _anchor='reply_form'))
 
 
 def add_read_num(topic_id):
