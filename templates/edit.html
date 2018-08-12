@@ -34,6 +34,7 @@
             </div>
         </div>
     </div>
+
     <div id="main">
         <div id="sidebar">
             <div class="panel">
@@ -91,14 +92,6 @@
                 <div class="inner post">
                     <form id="create_topic_form" action="/topic/edit/post" method="post">
                         <fieldset>
-                            <!-- <span class="tab-selector">选择版块：</span>
-                            <select name="tab" id="tab-value">
-                                <option value="">请选择</option>
-                                <option value="share">分享</option>
-                                <option value="ask">问答</option>
-                                <option value="job">招聘</option>
-                                <option value="dev">客户端测试</option>
-                            </select> -->
                             <span id="topic_create_warn"></span>
                             <textarea class="span9" id="title" name="title" rows="1" placeholder="标题字数 10 字以上">{{topic.title|safe}}</textarea>
                             <div class="markdown_editor in_editor">

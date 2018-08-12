@@ -111,6 +111,7 @@
                     </div>
                 </div>
             {% endfor %}
+
             <div class="panel">
                 <div class="header">
                     <span class="col_fade">添加回复</span>
@@ -119,7 +120,9 @@
                     <form id="reply_form" action="/reply/add" method="post">
                         <div class="markdown_editor in_editor">
                             <div class="CodeMirror cm-s-paper">
-                                <textarea id="reply_content" name="content"></textarea>
+                                <label for="reply_content" type="hidden"></label>
+                                <textarea id="reply_content" style="resize: none;width: 98%;"
+                                          name="content"></textarea>
                             </div>
                         </div>
                         <div class="editor_buttons">
@@ -127,12 +130,13 @@
                             <input name="topic_id" value="{{ topic.id }}" type="hidden">
                             <input name="title" value="{{ topic.title }}" type="hidden">
                         </div>
+                    </form>
                 </div>
             </div>
-            </form>
         </div>
     </div>
 {% endblock %}
+
 {% block script %}
     <script src="https://cdn.bootcss.com/marked/0.4.0/marked.min.js"></script>
     <script src="https://cdn.bootcss.com/prism/1.13.0/prism.js"></script>
