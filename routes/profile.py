@@ -17,7 +17,7 @@ from models.user import User
 from routes import login_required, current_user, csrf_token_create, turn_to_dict, csrf_valid_post
 from utils import log
 
-profile = Blueprint(__name__, 'profile')
+profile = Blueprint('profile', __name__)
 
 
 @profile.route('/user/<string:username>')

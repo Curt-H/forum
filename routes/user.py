@@ -17,7 +17,7 @@ from flask import (
     make_response)
 from models.user import User
 
-users = Blueprint(__name__, 'users')
+users = Blueprint('users', __name__)
 
 
 @users.route('/signin')

@@ -14,7 +14,7 @@ from models.topics import Topic
 from routes import current_user, turn_to_dict, login_required, csrf_valid_get, csrf_valid_post, generate_csrf_token
 from utils import log
 
-detail = Blueprint(__name__, 'detail')
+detail = Blueprint('detail', __name__)
 
 
 @detail.route('/topic/new')
