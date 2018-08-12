@@ -5,10 +5,15 @@
 {% endblock header %}
 
 {% block content %}
-    <h1>chat</h1>
+    <h1 id="id-rooms-title"></h1>
     <div>
         <textarea id="id_chat_area" cols="100" rows="20" disabled style="resize: none;"></textarea>
     </div>
     <label>[{{ u.username }}] 说:</label>
     <input id="id_input_text" size="80" placeholder="输入聊天消息">
 {% endblock content %}
+
+{% block script %}
+    <script src="https://cdn.bootcss.com/socket.io/2.0.3/socket.io.js"></script>
+    <script src="/static/chat.js"></script>
+{% endblock script %}

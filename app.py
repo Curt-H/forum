@@ -9,7 +9,7 @@ from utils import log
 from routes import timeformat
 from secret import user, password
 
-from flask_socketio import SocketIO
+from chat import socketio
 
 
 def jinja_env(app):
@@ -36,7 +36,6 @@ def configured_app():
 
     server = jinja_env(server)
 
-    socketio = SocketIO()
     socketio.init_app(server)
 
     return server, socketio
