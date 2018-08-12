@@ -40,7 +40,7 @@ def topic_add():
     form['content'] = form['content']
 
     Topic.new(form)
-    return redirect(url_for('routes.public.index'))
+    return redirect(url_for('public.index'))
 
 
 @detail.route('/topic/<int:topic_id>')
@@ -62,7 +62,7 @@ def topic_content(topic_id):
 def topic_delete():
     topic_id = request.args['id']
     Topic.delete(topic_id)
-    return redirect(url_for('routes.public.index'))
+    return redirect(url_for('public.index'))
 
 
 @detail.route('/topic/edit')
@@ -91,7 +91,7 @@ def topic_update():
     log(form)
     Topic.update(topic_id, **form)
 
-    return redirect(url_for('routes.public.index'))
+    return redirect(url_for('public.index'))
 
 
 @detail.route('/reply/add', methods=['POST'])

@@ -19,13 +19,16 @@
                     <a href="/">首页</a>
                 </li>
                 <li>
-                    <a href="{{ url_for('routes.user.signin') }}">注册</a>
+                    <a href="{{ url_for('users.signin') }}">注册</a>
                 </li>
                 <li>
-                    <a href="{{ url_for('routes.user.login_view') }}">登录</a>
+                    <a href="{{ url_for('users.login_view') }}">登录</a>
                 </li>
                 <li>
-                    <a href="{{ url_for('routes.user.logout') }}">注销</a>
+                    <a href="{{ url_for('users.logout') }}">注销</a>
+                </li>
+                <li>
+{#                    <a href="{{ url_for('chatroom.chatroom') }}">聊天</a>#}
                 </li>
             </ul>
         </div>

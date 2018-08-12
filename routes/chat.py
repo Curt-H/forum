@@ -6,3 +6,8 @@ from flask import (
 )
 
 chatroom = Blueprint('chatroom', __name__)
+
+
+@chatroom.route('/chatroom')
+def chatroom():
+    return render_template('chatroom.html')

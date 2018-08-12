@@ -49,11 +49,11 @@ def register():
         s = Session.new(form)
 
         generate_csrf_token(user)
-        response = make_response(redirect(url_for('routes.public.index')))
+        response = make_response(redirect(url_for('public.index')))
         response.set_cookie('session_id', s.session_id)
         return response
     else:
-        return redirect(url_for('.loginfo', result=result, target=url_for('routes.user.login')))
+        return redirect(url_for('.loginfo', result=result, target=url_for('users.login')))
 
 
 @users.route('/login/view')
@@ -114,7 +114,7 @@ def login_valid():
             log('更新CSRF令牌')
 
     log('USER\n{}'.format(u.username))
-    response = make_response(redirect(url_for('.log_info', result=result, target=url_for('routes.public.index'))))
+    response = make_response(redirect(url_for('.log_info', result=result, target=url_for('public.index'))))
     if session_id is not None:
         response.set_cookie('session_id', session_id)
     return response
@@ -126,7 +126,7 @@ def logout():
     注销登录用
     :return: 重定向到首页
     """
-    response = make_response(redirect(url_for('routes.public.index')))
+    response = make_response(redirect(url_for('public.index')))
     # 清除session_id
     response.set_cookie('session_id', ' ')
     return response
@@ -139,5 +139,5 @@ def log_info():
     :return:
     """
     result = request.args.get('result', '')
-    target = request.args.get('target', url_for('routes.public.index'))
+    target = request.args.get('target', url_for('public.index'))
     return render_template('log_info.html', alert=result, target=target)
