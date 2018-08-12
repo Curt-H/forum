@@ -1,16 +1,25 @@
 {% extends "base.html" %}
 
+{% block css %}
+    <link rel="stylesheet" href="/static/css/chat.css">
+    <link rel="stylesheet" href="/static/css/forms-min.css">
+    <link rel="stylesheet" href="/static/css/grids-core-min.css">
+    <link rel="stylesheet" href="/static/css/grids-min.css">
+{% endblock css %}
+
 {% block header %}
     <title>在线聊天室</title>
 {% endblock header %}
 
 {% block content %}
     <h1 id="id-rooms-title"></h1>
-    <div>
-        <textarea id="id_chat_area" cols="100" rows="20" disabled style="resize: none;"></textarea>
+    <div class="pure-form chat_area">
+        <textarea id="id_chat_area" rows="20" readonly></textarea>
     </div>
-    <label>[{{ u.username }}] 说:</label>
-    <input id="id_input_text" size="80" placeholder="输入聊天消息">
+    <div class="pure-form input_text">
+        <p class="input_title">[{{ u.username }}] 说:</p>
+        <input id="id_input_text" class="pure-u-1-2" size="80" placeholder="输入聊天消息">
+    </div>
 {% endblock content %}
 
 {% block script %}
