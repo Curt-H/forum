@@ -4,7 +4,7 @@ from routes.topics import detail
 from routes.public import public
 from routes.user import users
 from routes.profile import profile
-from routes.chat import chatroom
+from routes.chat import chat
 from utils import log
 from routes import timeformat
 from secret import user, password
@@ -24,7 +24,7 @@ def configured_app():
     server.register_blueprint(users)
     server.register_blueprint(detail)
     server.register_blueprint(profile)
-    server.register_blueprint(chatroom)
+    server.register_blueprint(chat)
 
     # flask sqlalchemy initialize
     database = 'mysql+pymysql://{}:{}@localhost/web?charset=utf8mb4'.format(user, password)

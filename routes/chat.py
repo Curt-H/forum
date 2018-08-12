@@ -5,9 +5,9 @@ from flask import (
     request,
 )
 
-chatroom = Blueprint('chatroom', __name__)
+chat = Blueprint('chatroom', __name__)
 
 
-@chatroom.route('/chatroom')
+@chat.route('/chatroom')
 def chatroom():
     return render_template('chatroom.html')
