@@ -22,8 +22,9 @@ def current_user():
         return User.guest()
 
 
-def generate_csrf_token():
-    u = current_user()
+def generate_csrf_token(u=None):
+    if u is None:
+        u = current_user()
     token = Csrf.one(user_id=u.id)
     csrf_token = uuid.uuid4().hex
     if token is None:

@@ -48,6 +48,7 @@ def register():
         )
         s = Session.new(form)
 
+        generate_csrf_token(user)
         response = make_response(redirect(url_for('routes.public.index')))
         response.set_cookie('session_id', s.session_id)
         return response
@@ -72,10 +73,7 @@ def login_view():
         filepath = verify_code(code, sha256_code)
 
     result = request.args.get('result', '')
-    # 生成csrf令牌
-    u = current_user()
-    if u.id > 0:
-        generate_csrf_token()
+
     return render_template('login.html', result=result, code=filepath)
 
 
@@ -109,6 +107,12 @@ def login_valid():
             user_id=u.id,
         )
         Session.new(form)
+        # 生成csrf令牌
+        u = current_user()
+        if u.id > 0:
+            generate_csrf_token()
+            log('更新CSRF令牌')
+
     log('USER\n{}'.format(u.username))
     response = make_response(redirect(url_for('.log_info', result=result, target=url_for('routes.public.index'))))
     if session_id is not None:
