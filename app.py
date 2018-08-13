@@ -38,11 +38,11 @@ def configured_app():
 
     socketio.init_app(server)
 
-    return server, socketio
+    return server
 
 
 if __name__ == '__main__':
-    app, socketio = configured_app()
+    app = configured_app()
     # debug 模式可以自动加载你对代码的变动, 所以不用重启程序
     # host 参数指定为 '0.0.0.0' 可以让别的机器访问你的代码
     # app = Flask(__name__)
