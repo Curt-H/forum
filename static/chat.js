@@ -34,8 +34,10 @@ let clear_board = function () {
 
 let __main = function () {
     // 初始化 websocket 的方法
+    console.log('domain', document.domain)
     let namespace = '/chatroom';
     let url = `wss://${document.domain}:${location.port}${namespace}`;
+
 
     // 一开始是 polling 然后升级成 websocket
     // 但是 polling 从 2.0 开始有 bug，认不了 unicode
