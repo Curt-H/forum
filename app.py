@@ -21,7 +21,6 @@ def configured_app():
     server.register_blueprint(users)
     server.register_blueprint(detail)
     server.register_blueprint(profile)
-    server.register_blueprint(chat)
 
     # flask sqlalchemy initialize
     database = 'mysql+pymysql://{}:{}@localhost/web?charset=utf8mb4'.format(user, password)
@@ -46,4 +45,4 @@ if __name__ == '__main__':
         host='0.0.0.0',
         port=80,
     )
-    app.run(app, **config)
+    app.run(**config)
