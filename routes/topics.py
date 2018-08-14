@@ -19,10 +19,6 @@ detail = Blueprint('detail', __name__)
 
 @detail.route('/topic/new')
 def topic_new_view():
-    valid = login_required()
-    if not valid:
-        return redirect(url_for('routes.user.signin', result='请先登录'))
-
     u = current_user()
     return render_template('new_topice_view.html', username=u.username)
 
