@@ -100,6 +100,10 @@ def login_valid():
 
     session_id = None
     u, result = User.login(form)
+
+    if result != '登录成功':
+        return redirect(url_for('.log_info', result='用户名或者密码错误', target=url_for('.login_view')))
+
     if not u.is_guest():
         session_id = uuid.uuid4().hex
         form = dict(
