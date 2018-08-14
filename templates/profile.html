@@ -39,7 +39,7 @@
                 </div>
                 {% if can_edit %}
                     <div class="inner">
-                        <a href="{{ url_for('detail.topic_content', topic_id = user.id) }}">
+                        <a href="{{ url_for('profile.edit_profile', id = user.id) }}">
                             <span class='span-success'>编辑个人资料</span>
                         </a>
                     </div>

@@ -22,14 +22,10 @@ profile = Blueprint('profile', __name__)
 
 @profile.route('/user/<string:username>')
 def profile_index(username):
-    valid = login_required()
     can_edit = True
 
-    if not valid:
-        return redirect(url_for('routes.user.signin', result='请先登录'))
-
     user = User.one(username=username)
-    log('USER:', user)
+    log(f'USER<{username}>:{user}')
     user_id = user.id
 
     replys = Reply.all(writer_id=user_id)
