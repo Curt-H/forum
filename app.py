@@ -9,9 +9,6 @@ from utils import log
 from routes import timeformat
 from secret import user, password
 
-from chat import socketio
-
-
 def jinja_env(app):
     env = app.jinja_env
     env.filters['timeformat'] = timeformat
@@ -35,9 +32,6 @@ def configured_app():
     log('Successfully initialize the database')
 
     server = jinja_env(server)
-
-    socketio.init_app(server)
-
     return server
 
 
@@ -52,4 +46,4 @@ if __name__ == '__main__':
         host='0.0.0.0',
         port=80,
     )
-    socketio.run(app, **config)
+    app.run(app, **config)
