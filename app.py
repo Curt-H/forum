@@ -4,10 +4,10 @@ from routes.topics import detail
 from routes.public import public
 from routes.user import users
 from routes.profile import profile
-from routes.chat import chat
 from utils import log
 from routes import timeformat
 from secret import user, password
+
 
 def jinja_env(app):
     env = app.jinja_env
